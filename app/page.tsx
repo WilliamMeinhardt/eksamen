@@ -7,7 +7,7 @@ import Image from "next/image"
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-screen">
+    <div className="flex bg-[#409] dark:bg-[#409] flex-col items-center justify-center w-full min-h-screen">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-background w-full">
         <div className="hero-pattern absolute inset-0" />
@@ -21,7 +21,7 @@ export default function HomePage() {
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
                   Trening for <span className="text-primary">alle</span>
                 </h1>
-                <p className="text-xl text-muted-foreground max-w-[600px] mx-auto">
+                <p className="text-xl text-muted-foreground max-w-[600px] mx-auto text-white">
                   Bli med i vårt inkluderende treningsfellesskap hvor alle kropper blir feiret. Vi tilbyr varierte
                   treningsøkter både innendørs og utendørs, designet for å gjøre trening tilgjengelig og morsomt for
                   alle.
@@ -41,7 +41,7 @@ export default function HomePage() {
             </div>
             <div className="relative flex justify-center items-center">
               <Image
-                src="/placeholder.svg?height=500&width=600"
+                src="/trening.avif"
                 alt="Folk som trener sammen i et hyggelig miljø"
                 width={600}
                 height={500}
@@ -58,7 +58,7 @@ export default function HomePage() {
         <div className="container flex flex-col items-center">
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Vår treningsfilosofi</h2>
-            <p className="text-xl text-muted-foreground max-w-[800px] mx-auto">
+            <p className="text-xl text-muted-foreground max-w-[800px] mx-auto text-white">
               Hos Treningsglede AS tror vi at trening skal være en kilde til glede, ikke stress. Vår tilnærming
               fokuserer på å skape et støttende miljø hvor alle kan trives.
             </p>
@@ -112,88 +112,18 @@ export default function HomePage() {
         <div className="container flex flex-col items-center">
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Populære treningstimer</h2>
-            <p className="text-xl text-muted-foreground">Oppdag noen av våre mest populære treningsklasser</p>
+            <p className="text-xl text-muted-foreground text-white">Oppdag noen av våre mest populære treningsklasser</p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 justify-center">
-            <Card className="overflow-hidden">
-              <div className="aspect-video relative">
-                <Image
-                  src="/placeholder.svg?height=200&width=400"
-                  alt="Utendørs HIIT-trening"
-                  fill
-                  className="object-cover"
-                />
-                <Badge className="absolute top-4 left-4">Utendørs</Badge>
-              </div>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  HIIT i parken
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Clock className="h-4 w-4 mr-1" />
-                    45 min
-                  </div>
-                </CardTitle>
-                <CardDescription>
-                  Høyintensitets intervalltrening i vakre utendørsomgivelser. Perfekt for å bygge styrke og utholdenhet
-                  mens du nyter frisk luft.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                    <span className="text-sm">4.9 (127 anmeldelser)</span>
-                  </div>
-                  <span className="text-sm text-muted-foreground">12 plasser igjen</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden">
-              <div className="aspect-video relative">
-                <Image
-                  src="/placeholder.svg?height=200&width=400"
-                  alt="Innendørs yogaklasse"
-                  fill
-                  className="object-cover"
-                />
-                <Badge className="absolute top-4 left-4" variant="secondary">
-                  Innendørs
-                </Badge>
-              </div>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  Mindful Yoga Flow
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Clock className="h-4 w-4 mr-1" />
-                    60 min
-                  </div>
-                </CardTitle>
-                <CardDescription>
-                  Rolig yogapraksis med fokus på mindfulness, fleksibilitet og avspenning. Passer for alle nivåer i vårt
-                  fredelige studiomiljø.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                    <span className="text-sm">4.8 (89 anmeldelser)</span>
-                  </div>
-                  <span className="text-sm text-muted-foreground">5 plasser igjen</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden">
+          <div className="grid gap-6 max-w-[1200px] mx-auto px-8 md:grid-cols-2 lg:grid-cols-3 justify-center">
+            <Card className="w-full">
               <div className="aspect-video relative">
                 <Image src="/placeholder.svg?height=200&width=400" alt="Styrketrening" fill className="object-cover" />
                 <Badge className="absolute top-4 left-4" variant="secondary">
                   Innendørs
                 </Badge>
               </div>
-              <CardHeader>
+              <CardContent>
                 <CardTitle className="flex items-center justify-between">
                   Styrke & Kondisjon
                   <div className="flex items-center text-sm text-muted-foreground">
@@ -205,15 +135,48 @@ export default function HomePage() {
                   Bygg funksjonell styrke med vårt omfattende styrketreningsprogram. Inkluderer instruksjon i riktig
                   form og progressive overbelastningsprinsipper.
                 </CardDescription>
-              </CardHeader>
+              </CardContent>
+            </Card>
+            <Card className="w-full">
+              <div className="aspect-video relative">
+                <Image src="/placeholder.svg?height=200&width=400" alt="Styrketrening" fill className="object-cover" />
+                <Badge className="absolute top-4 left-4" variant="secondary">
+                  Innendørs
+                </Badge>
+              </div>
               <CardContent>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <Star className="h-4 w-4 text-yellow-500 mr-1" />
-                    <span className="text-sm">4.9 (156 anmeldelser)</span>
+                <CardTitle className="flex items-center justify-between">
+                  Styrke & Kondisjon
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <Clock className="h-4 w-4 mr-1" />
+                    50 min
                   </div>
-                  <span className="text-sm text-destructive">Venteliste</span>
-                </div>
+                </CardTitle>
+                <CardDescription>
+                  Bygg funksjonell styrke med vårt omfattende styrketreningsprogram. Inkluderer instruksjon i riktig
+                  form og progressive overbelastningsprinsipper.
+                </CardDescription>
+              </CardContent>
+            </Card>
+            <Card className="w-full">
+              <div className="aspect-video relative">
+                <Image src="/placeholder.svg?height=200&width=400" alt="Styrketrening" fill className="object-cover" />
+                <Badge className="absolute top-4 left-4" variant="secondary">
+                  Innendørs
+                </Badge>
+              </div>
+              <CardContent>
+                <CardTitle className="flex items-center justify-between">
+                  Styrke & Kondisjon
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <Clock className="h-4 w-4 mr-1" />
+                    50 min
+                  </div>
+                </CardTitle>
+                <CardDescription>
+                  Bygg funksjonell styrke med vårt omfattende styrketreningsprogram. Inkluderer instruksjon i riktig
+                  form og progressive overbelastningsprinsipper.
+                </CardDescription>
               </CardContent>
             </Card>
           </div>
@@ -232,7 +195,7 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="py-16 md:py-24 w-full flex justify-center">
         <div className="container flex flex-col items-center">
-          <Card className="gradient-bg text-white w-full max-w-2xl mx-auto">
+          <Card className="gradient-bg text-black w-full max-w-2xl mx-auto">
             <CardContent className="p-8 md:p-12 text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
                 Klar til å starte din treningsreise?

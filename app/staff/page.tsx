@@ -45,6 +45,8 @@ export default function StaffPage() {
     }
   }
 
+  console.log(instructors);
+
   if (loading) {
     return (
       <div className="container py-8 md:py-12">
@@ -74,6 +76,8 @@ export default function StaffPage() {
 
   const totalCertifications = instructors.reduce((total, instructor) => total + instructor.certifications.length, 0)
   const totalSpecialties = new Set(instructors.flatMap((instructor) => instructor.specialties)).size
+
+  console.log("Total certifications:", totalCertifications)
 
   return (
     <div className="container py-8 md:py-12">

@@ -17,6 +17,13 @@ console.log("Connecting to database with URL:", databaseUrl.substring(0, 20) + "
 
 export const sql = neon(databaseUrl)
 
+// Verify DB connection
+sql`SELECT 1`.then(() => {
+  console.log("Database connection verified successfully.")
+}).catch((err) => {
+  console.error("Database connection failed:", err)
+})
+
 // Database helper functions
 export async function createUser(clerkId: string, email: string, firstName?: string, lastName?: string) {
   const result = await sql`
@@ -37,6 +44,26 @@ export async function getUser(clerkId: string) {
     SELECT * FROM users WHERE clerk_id = ${clerkId}
   `
   return result[0]
+}
+
+export async function getInstructors() {
+  const result = await sql`
+    SELECT 
+      id,
+      name,
+      email,
+      role,
+      bio,
+      specialties,
+      certifications,
+      image_url,
+      active,
+      created_at
+    FROM instructors
+    WHERE active = true
+    ORDER BY name
+  `
+  return result
 }
 
 export async function getAllSessions() {
