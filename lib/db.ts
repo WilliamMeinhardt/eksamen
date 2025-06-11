@@ -70,23 +70,14 @@ export async function getAllSessions() {
   const result = await sql`
     SELECT 
       s.*,
-      st.title,
-      st.description,
+      st.title as session_type_title,
       st.duration,
       st.max_participants,
       st.price,
-      st.difficulty_level,
-      st.session_type,
-      st.tags,
-      st.image_url,
-      i.name as instructor_name,
-      (SELECT COUNT(*) FROM waitlist w WHERE w.session_id = s.id) as waitlist_count,
-      (SELECT AVG(rating)::DECIMAL(3,2) FROM reviews r WHERE r.session_id = s.id) as avg_rating,
-      (SELECT COUNT(*) FROM reviews r WHERE r.session_id = s.id) as review_count
+      i.name as instructor_name
     FROM sessions s
     JOIN session_types st ON s.session_type_id = st.id
     JOIN instructors i ON s.instructor_id = i.id
-    WHERE s.session_date >= CURRENT_DATE
     ORDER BY s.session_date, s.start_time
   `
   return result

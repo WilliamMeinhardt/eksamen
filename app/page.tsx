@@ -15,13 +15,13 @@ export default function HomePage() {
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center justify-center w-full">
             <div className="space-y-6 text-center flex flex-col items-center justify-center">
               <div className="space-y-4">
-                <Badge variant="secondary" className="w-fit mx-auto">
+                <Badge variant="secondary" className="w-fit text-3xl mx-auto">
                   Velkommen til Treningsglede AS
                 </Badge>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
                   Trening for <span className="text-primary">alle</span>
                 </h1>
-                <p className="text-xl text-muted-foreground max-w-[600px] mx-auto text-white">
+                <p className="text-xl max-w-[600px] mx-auto text-white">
                   Bli med i vårt inkluderende treningsfellesskap hvor alle kropper blir feiret. Vi tilbyr varierte
                   treningsøkter både innendørs og utendørs, designet for å gjøre trening tilgjengelig og morsomt for
                   alle.

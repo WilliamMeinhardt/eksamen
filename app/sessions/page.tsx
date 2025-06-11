@@ -55,7 +55,30 @@ export default function SessionsPage() {
         throw new Error("Failed to fetch sessions")
       }
       const data = await response.json()
-      setSessions(data as Session[])
+      if (!Array.isArray(data)) {
+        throw new Error("API response is not an array")
+      }
+      const mapped = data.map((item: any) => ({
+        id: item.id,
+        title: item.session_type_title ?? "",
+        description: item.notes ?? "",
+        instructor: item.instructor_name ?? "",
+        type: "indoor",
+        duration: item.duration ?? 0,
+        maxParticipants: item.max_participants ?? 0,
+        currentParticipants: item.current_participants ?? 0,
+        waitlist: 0, // or item.waitlist if available
+        difficulty: "Nybegynner", 
+        time: item.start_time ?? "",
+        date: item.session_date ?? "",
+        location: item.location ?? "",
+        price: Number(item.price) ?? 0,
+        rating: 0, // or item.rating if available
+        reviews: 0, // or item.reviews if available
+        image: "", // or item.image if available
+        tags: [], // or item.tags if available
+      }))
+      setSessions(mapped)
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
     } finally {
@@ -64,10 +87,11 @@ export default function SessionsPage() {
   }
 
   const filteredSessions = sessions.filter((session) => {
+    const search = searchTerm.toLowerCase()
     const matchesSearch =
-      session.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      session.instructor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      session.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      (typeof session.title === "string" && session.title.toLowerCase().includes(search)) ||
+      (typeof session.instructor === "string" && session.instructor.toLowerCase().includes(search)) ||
+      (Array.isArray(session.tags) && session.tags.some((tag) => typeof tag === "string" && tag.toLowerCase().includes(search)))
     const matchesType = selectedType === "all" || session.type === selectedType
     const matchesDifficulty = selectedDifficulty === "all" || session.difficulty === selectedDifficulty
 

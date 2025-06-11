@@ -2,6 +2,8 @@ import Link from "next/link"
 import { Dumbbell, Facebook, Instagram, Twitter } from "lucide-react"
 
 export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className="border-t border-border bg-background">
       <div className="container mx-auto py-8 md:py-12">
@@ -62,7 +64,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 Treningsglede AS. Alle rettigheter reservert.</p>
+          <p>&copy; {currentYear} Treningsglede AS. Alle rettigheter reservert.</p>
         </div>
       </div>
     </footer>
