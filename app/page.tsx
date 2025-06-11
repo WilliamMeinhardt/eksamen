@@ -9,11 +9,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-background w-full flex justify-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-background w-full">
         <div className="hero-pattern absolute inset-0" />
-        <div className="container relative py-24 md:py-32 flex flex-col items-center">
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center justify-center">
-            <div className="space-y-6 text-center">
+        <div className="container mx-auto relative py-24 md:py-32 flex flex-col items-center justify-center">
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center justify-center w-full">
+            <div className="space-y-6 text-center flex flex-col items-center justify-center">
               <div className="space-y-4">
                 <Badge variant="secondary" className="w-fit mx-auto">
                   Velkommen til Treningsglede AS
@@ -39,7 +39,7 @@ export default function HomePage() {
                 </Button>
               </div>
             </div>
-            <div className="relative flex justify-center">
+            <div className="relative flex justify-center items-center">
               <Image
                 src="/placeholder.svg?height=500&width=600"
                 alt="Folk som trener sammen i et hyggelig miljø"
@@ -64,7 +64,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3 justify-center">
+          <div className="grid gap-8 md:grid-cols-3 justify-center items-stretch max-w-5xl w-full px-4 mx-auto">
             <Card className="text-center">
               <CardHeader>
                 <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
