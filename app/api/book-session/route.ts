@@ -25,7 +25,8 @@ export async function POST(request: NextRequest) {
         SELECT 
           s.current_participants,
           st.max_participants,
-          st.price
+          st.price,
+          s.start_time
         FROM sessions s
         JOIN session_types st ON s.session_type_id = st.id
         WHERE s.id = ${sessionId}
@@ -35,6 +36,12 @@ export async function POST(request: NextRequest) {
       if (!session) {
         await sql`ROLLBACK`
         return NextResponse.json({ error: "Session not found" }, { status: 404 })
+      }
+
+      // Check if session has expired
+      if (new Date(session.start_time) < new Date()) {
+        await sql`ROLLBACK`
+        return NextResponse.json({ error: "Cannot book an expired session" }, { status: 400 })
       }
 
       // Check if user already booked this session

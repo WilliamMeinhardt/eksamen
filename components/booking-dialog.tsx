@@ -28,6 +28,28 @@ interface Session {
   date: string
   location: string
   price: number
+  rawDate?: string // ISO date string from the database
+  rawTime?: string // Time string from the database
+}
+
+function isSessionExpired(session: Session): boolean {
+  // If we have raw date and time values, use them for comparison
+  if (session.rawDate && session.rawTime) {
+    const sessionDateTime = new Date(`${session.rawDate}T${session.rawTime}`)
+    return sessionDateTime < new Date()
+  }
+
+  // Fallback: Try to parse from formatted date and time
+  // This is less reliable but works as a backup
+  const [day, month, year] = session.date.split(".").map(Number)
+  const [hours, minutes] = session.time.split(":").map(Number)
+
+  if (!isNaN(day) && !isNaN(month) && !isNaN(year) && !isNaN(hours) && !isNaN(minutes)) {
+    const sessionDate = new Date(year, month - 1, day, hours, minutes)
+    return sessionDate < new Date()
+  }
+
+  return false
 }
 
 interface BookingDialogProps {
@@ -45,10 +67,18 @@ export function BookingDialog({ session, open, onOpenChange, onBookingComplete }
 
   const spotsLeft = session.maxParticipants - session.currentParticipants
   const isFull = spotsLeft <= 0
+  const isExpired = isSessionExpired(session)
 
   const handleBooking = async () => {
     setIsBooking(true)
     setError(null)
+
+    // Prevent booking expired sessions
+    if (isExpired) {
+      setError("Denne timen har allerede startet eller er avsluttet")
+      setIsBooking(false)
+      return
+    }
 
     try {
       const response = await fetch("/api/book-session", {
@@ -64,9 +94,8 @@ export function BookingDialog({ session, open, onOpenChange, onBookingComplete }
       const data = await response.json()
 
       if (!response.ok) {
-        const errorMsg = typeof data === "object" && data !== null && "error" in data
-          ? (data as { error?: string }).error
-          : undefined
+        const errorMsg =
+          typeof data === "object" && data !== null && "error" in data ? (data as { error?: string }).error : undefined
         throw new Error(errorMsg || "Failed to book session")
       }
 
@@ -157,7 +186,15 @@ export function BookingDialog({ session, open, onOpenChange, onBookingComplete }
           <Separator />
 
           {/* Availability Status */}
-          {isFull ? (
+          {isExpired ? (
+            <div className="flex items-center gap-2 p-3 bg-red-50 rounded-lg border border-red-200">
+              <AlertCircle className="h-4 w-4 text-red-600" />
+              <div className="text-sm">
+                <p className="font-medium text-red-800">Timen har utløpt</p>
+                <p className="text-red-600">Denne timen har allerede startet eller er avsluttet</p>
+              </div>
+            </div>
+          ) : isFull ? (
             <div className="flex items-center gap-2 p-3 bg-orange-50 rounded-lg border border-orange-200">
               <AlertCircle className="h-4 w-4 text-orange-600" />
               <div className="text-sm">
@@ -210,12 +247,14 @@ export function BookingDialog({ session, open, onOpenChange, onBookingComplete }
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Avbryt
           </Button>
-          <Button onClick={handleBooking} disabled={isBooking} className="w-full sm:w-auto">
+          <Button onClick={handleBooking} disabled={isBooking || isExpired} className="w-full sm:w-auto">
             {isBooking ? (
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 {isFull ? "Legger til på venteliste..." : "Bestiller..."}
               </div>
+            ) : isExpired ? (
+              "Timen har utløpt"
             ) : isFull ? (
               "Bli med på venteliste"
             ) : (
